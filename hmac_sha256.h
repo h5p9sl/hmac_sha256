@@ -6,6 +6,10 @@
 #ifndef _HMAC_SHA256_H_
 #define _HMAC_SHA256_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 #include <stdint.h>
 
 void hmac_sha256(
@@ -17,5 +21,9 @@ void hmac_sha256(
     uint8_t* out, const unsigned outlen
 );
 
-#endif
+#ifdef __cplusplus
+}
+#endif // __cplusplus
+
+#endif // _HMAC_SHA256_H_
 
