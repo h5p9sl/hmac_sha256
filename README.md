@@ -7,42 +7,43 @@ A SHA256 HMAC implementation in C/C++
 
 #include <iostream>
 #include <sstream>
-#include <cstdlib>
+#include <vector>
+#include <string>
 #include <cstring>
+#include <tuple>
 
 int main(void) {
-    static const char* testvector = "b0344c61d8db38535ca8afceafbf12b881dc20c9833da726e9376c2e32cff7";
-    uint8_t* key, *data, *out;
-    unsigned keylen, datalen, outlen;
+    const std::string testvector = "b0344c61d8db38535ca8afceafbf12b881dc20c9833da726e9376c2e32cff7";
+	std::vector<uint8_t> key, data, out;
     std::stringstream result;
 
     // Allocate memory
-    keylen = 20;
-    datalen = 8;
-    outlen = 32;
-    key = (uint8_t*)malloc(keylen);
-    data = (uint8_t*)malloc(datalen);
-    out = (uint8_t*)malloc(outlen);
+    key.resize(20);
+    data.resize(8);
+    out.resize(32);
 
     // Initialize variables
-    strncpy((char*)data, "Hi There", datalen);
-    memset(key, 0x0b, 20);
+    strncpy((char*)data.data(), "Hi There", data.size());
+    memset(key.data(), 0x0b, key.size());
 
-    hmac_sha256(key, keylen, data, datalen, out, outlen);
+    // Call hmac sha256 function
+    hmac_sha256(key.data(), key.size(),
+            data.data(), data.size(),
+            out.data(), out.size());
 
     // Convert 'out' to string
-    for (unsigned i = 0; i < outlen; i++) {
+    for (unsigned i = 0; i < out.size(); i++) {
         result << std::hex << (int)out[i];
     }
     std::cout << result.str() << std::endl;
     std::cout << testvector << std::endl;
 
     // Compare result
-    if (strncmp(testvector, result.str().c_str(), result.str().length()) == 0) {
+    if (testvector.compare(result.str()) == 0) {
         std::cout << "Test passed!" << std::endl;
-    } else {
-        std::cout << "Test failed." << std::endl;
+        return 0;
     }
+    std::cout << "Test failed." << std::endl;
 
     return 0;
 }
