@@ -14,7 +14,7 @@ A SHA256 HMAC implementation in C/C++
 
 int main(void) {
     const std::string testvector = "b0344c61d8db38535ca8afceafbf12b881dc20c9833da726e9376c2e32cff7";
-	std::vector<uint8_t> key, data, out;
+    std::vector<uint8_t> key, data, out;
     std::stringstream result;
 
     // Allocate memory
