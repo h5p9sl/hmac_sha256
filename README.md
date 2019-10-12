@@ -35,7 +35,7 @@ int main() {
     );
 
     // Convert 'out' to string
-    for (unsigned i = 0; i < out.size(); i++) {
+    for (size_t i = 0; i < out.size(); i++) {
         result << std::hex << (int)out[i];
     }
     std::cout << result.str() << std::endl;
