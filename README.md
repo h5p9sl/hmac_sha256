@@ -13,28 +13,29 @@ A SHA256 HMAC implementation in C/C++
 #define SHA256_HASHLEN 32
 
 int main() {
+    // This is what the hmac_sha256 value should output
     const std::string testvector = "b0344c61d8db38535ca8afceafbf12b881dc20c9833da726e9376c2e32cff7";
     const std::string str_data = "Hi There";
 
     std::vector<uint8_t> key, data, out;
     std::stringstream result;
 
-    // Allocate memory
+    // Allocate memory using C++ std::vector
     key.resize(20, 0x0b);
     data.resize(str_data.length(), 0);
     out.resize(SHA256_HASHLEN, 0);
 
-    // Fill data
+    // Fill `data` with `str_data`'s bytes
     data.assign(str_data.cbegin(), str_data.cend());
 
-    // Call hmac sha256 function
+    // Call hmac-sha256 function
     hmac_sha256(
         key.data(),  key.size(),
         data.data(), data.size(),
         out.data(),  out.size()
     );
 
-    // Convert 'out' to string
+    // Convert `out` to string with std::hex
     for (size_t i = 0; i < out.size(); i++) {
         result << std::hex << (int)out[i];
     }
