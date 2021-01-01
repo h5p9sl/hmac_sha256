@@ -46,3 +46,5 @@ int main() {
     return 0;
 }
 ```
+
+Thank you to the [WaterJuice](https://github.com/WaterJuice/WjCryptLib) for providing the Sha256 implementation!
