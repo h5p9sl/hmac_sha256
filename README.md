@@ -47,4 +47,4 @@ int main() {
 }
 ```
 
-Thank you to the [WaterJuice](https://github.com/WaterJuice/WjCryptLib) for providing the Sha256 implementation!
+Thank you to the [WjCryptLib](https://github.com/WaterJuice/WjCryptLib) for providing the Sha256 implementation!
