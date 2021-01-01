@@ -1,8 +1,3 @@
-# [hmac_sha256](https://github.com/h5p9sl/hmac_sha256)
-*A SHA256 HMAC implementation in C/C++*
-
-## Usage Example (C++)
-```cpp
 #include "../hmac_sha256.h"
 
 #include <vector>
@@ -45,4 +40,3 @@ int main() {
     );
     return 0;
 }
-```

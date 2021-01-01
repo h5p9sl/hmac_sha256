@@ -26,7 +26,6 @@ typedef struct
 } Sha256Context;
 
 #define SHA256_HASH_SIZE           ( 256 / 8 )
-#define SHA256_BLOCK_SIZE          ( 512 / 8 )
 
 typedef struct
 {
