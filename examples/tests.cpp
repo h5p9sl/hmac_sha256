@@ -32,6 +32,7 @@ void do_tests(const TestData_t& test_vectors) {
 }
 
 int main() {
+    // Test vectors from RFC4231, https://tools.ietf.org/html/rfc4231#section-4
     const TestData_t test_vectors = {
         // Key      Data      HMAC
         {
