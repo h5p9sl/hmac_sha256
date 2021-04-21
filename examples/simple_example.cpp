@@ -31,6 +31,7 @@ int main() {
 
     // Print out the result
     std::cout << "Message: " << str_data << std::endl;
+    std::cout << "Key: " << str_key << std::endl;
     std::cout << "HMAC: " << ss_result.str() << std::endl;
 
     // This assertion fails if something went wrong
