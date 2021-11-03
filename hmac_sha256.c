@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZEOFARRAY(x) (sizeof(x) / sizeof(x[0]))
 #define SHA256_BLOCK_SIZE 64
 
 /* LOCAL FUNCTIONS */
@@ -21,6 +20,7 @@ static void* H(const void* x,
                const size_t ylen,
                void* out,
                const size_t outlen);
+
 // Wrapper for sha256
 static void* sha256(const void* data,
                     const size_t datalen,
@@ -42,14 +42,14 @@ size_t hmac_sha256(const void* key,
   size_t sz;
   int i;
 
-  memset(k, 0, SIZEOFARRAY(k));
+  memset(k, 0, sizeof(k));
   memset(k_ipad, 0x36, SHA256_BLOCK_SIZE);
   memset(k_opad, 0x5c, SHA256_BLOCK_SIZE);
 
   if (keylen > SHA256_BLOCK_SIZE) {
     // If the key is larger than the hash algorithm's
     // block size, we must digest it first.
-    sha256(key, keylen, k, SIZEOFARRAY(k));
+    sha256(key, keylen, k, sizeof(k));
   } else {
     memcpy(k, key, keylen);
   }
@@ -61,9 +61,8 @@ size_t hmac_sha256(const void* key,
 
   // Perform HMAC algorithm: ( https://tools.ietf.org/html/rfc2104 )
   //      `H(K XOR opad, H(K XOR ipad, data))`
-  H(k_ipad, SIZEOFARRAY(k_ipad), data, datalen, ihash, SIZEOFARRAY(ihash));
-  H(k_opad, SIZEOFARRAY(k_opad), ihash, SIZEOFARRAY(ihash), ohash,
-    SIZEOFARRAY(ohash));
+  H(k_ipad, sizeof(k_ipad), data, datalen, ihash, sizeof(ihash));
+  H(k_opad, sizeof(k_opad), ihash, sizeof(ihash), ohash, sizeof(ohash));
 
   sz = (outlen > SHA256_HASH_SIZE) ? SHA256_HASH_SIZE : outlen;
   memcpy(out, ohash, sz);
@@ -76,9 +75,9 @@ static void* H(const void* x,
                const size_t ylen,
                void* out,
                const size_t outlen) {
-  const size_t buflen = xlen + ylen;
-  uint8_t* buf = (uint8_t*)malloc(buflen);
   void* result;
+  size_t buflen = (xlen + ylen);
+  uint8_t* buf = (uint8_t*)malloc(buflen);
 
   memcpy(buf, x, xlen);
   memcpy(buf + xlen, y, ylen);
