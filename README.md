@@ -27,20 +27,6 @@ I aim to tailor this code not only for myself, but for other's use cases too.
 ## Usage Example (C++)
 https://github.com/h5p9sl/hmac_sha256/blob/79a57d2a85aaab32449e5179a4f08f37e38cdee5/examples/simple_example.cpp#L13-L26
 
-```cpp
-    const std::string str_data = "Hello World!";
-    const std::string str_key = "super-secret-key";
-
-    // Allocate memory for the HMAC
-    std::vector<uint8_t> out(SHA256_HASH_SIZE);
-
-    // Call hmac-sha256 function
-    hmac_sha256(
-        str_key.data(),  str_key.size(),
-        str_data.data(), str_data.size(),
-        out.data(),  out.size()
-    );
-```
 ## Sha256 Implementation
 Big thank you to [WjCryptLib](https://github.com/WaterJuice/WjCryptLib) for providing the Sha256 implementation of which this project is based off.
 If you need more public domain cryptographic functions in C (sha, aes, md5), check them out.
