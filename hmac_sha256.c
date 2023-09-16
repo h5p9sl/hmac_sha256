@@ -76,15 +76,18 @@ static void* H(const void* x,
                void* out,
                const size_t outlen) {
   void* result;
-  size_t buflen = (xlen + ylen);
-  uint8_t* buf = (uint8_t*)malloc(buflen);
+  size_t sz;
+  Sha256Context ctx;
+  SHA256_HASH hash;
 
-  memcpy(buf, x, xlen);
-  memcpy(buf + xlen, y, ylen);
-  result = sha256(buf, buflen, out, outlen);
+  Sha256Initialise(&ctx);
+  Sha256Update(&ctx, x, xlen);
+  Sha256Update(&ctx, y, ylen);
+  Sha256Finalise(&ctx, &hash);
 
-  free(buf);
-  return result;
+  sz = (outlen > SHA256_HASH_SIZE) ? SHA256_HASH_SIZE : outlen;
+
+  return memcpy(out, hash.bytes, sz);
 }
 
 static void* sha256(const void* data,
